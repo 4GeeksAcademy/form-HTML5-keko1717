@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Pago con Monto y Mensaje</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    body {
+      background-color: #f5f8fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .payment-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
+      width: 900px;
+      padding: 40px 50px;
+    }
+
+    h2 {
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      font-weight: 600;
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    input.form-control,
+    select.form-select,
+    textarea.form-control {
+      border-radius: 8px;
+      height: 44px;
+      font-size: 1rem;
+      padding: 8px 14px;
+      border: 1.7px solid #ced4da;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+
+    textarea.form-control {
+      height: auto;
+      min-height: 80px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    input.form-control:focus,
+    select.form-select:focus,
+    textarea.form-control:focus {
+      border-color: #0069d9;
+      box-shadow: 0 0 6px rgba(0, 105, 217, 0.3);
+    }
+
+    ::placeholder {
+      color: #999;
+      opacity: 1;
+    }
+
+    .row.g-3 > [class*="col-"] {
+      margin-bottom: 18px;
+    }
+
+    button.btn-primary {
+      width: 100%;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      margin-top: 15px;
+    }
+
+    /* Formas de pago pequeñas */
+    .payment-methods {
+      margin-top: 30px;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #444;
+      font-size: 1rem;
+      user-select: none;
+    }
+
+    .payment-method input[type="radio"] {
+      accent-color: #0069d9; /* color del círculo cuando está seleccionado */
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .payment-method i {
+      font-size: 1.5rem;
+      color: #0069d9;
+    }
+
+    .payment-method input[type="radio"]:focus + i,
+    .payment-method input[type="radio"]:checked + i {
+      color: #004085;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-card">
+
+    <h2>Formulario de Pago</h2>
+
+    <form novalidate>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="cardName" class="form-label">Nombre en la tarjeta</label>
+          <input
+            type="text"
+            id="cardName"
+            class="form-control"
+            placeholder=""
+            required
+            autocomplete="cc-name"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label for="cardNumber" class="form-label">Número de tarjeta</label>
+          <input
+            type="text"
+            id="cardNumber"
+            class="form-control"
+            placeholder=""
+            pattern="[0-9\s]{13,19}"
+            inputmode="numeric"
+            required
+            autocomplete="cc-number"
+          />
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label for="expiryDate" class="form-label">Fecha de expiración</label>
+          <input
+            type="month"
+            id="expiryDate"
+            class="form-control"
+            required
+            autocomplete="cc-exp"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <label for="cvv" class="form-label">CVV</label>
+          <input
+            type="password"
+            id="cvv"
+            class="form-control"
+            placeholder=""
+            pattern="[0-9]{3,4}"
+            required
+            autocomplete="cc-csc"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label for="billingAddress" class="form-label">Dirección de facturación</label>
+          <input
+            type="text"
+            id="billingAddress"
+            class="form-control"
+            placeholder=""
+            required
+            autocomplete="address-line1"
+          />
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-5">
+          <label for="city" class="form-label">Ciudad</label>
+          <input
+            type="text"
+            id="city"
+            class="form-control"
+            placeholder=""
+            required
+            autocomplete="address-level2"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <label for="postalCode" class="form-label">Código postal</label>
+          <input
+            type="text"
+            id="postalCode"
+            class="form-control"
+            placeholder=""
+            pattern="[0-9]{4,10}"
+            required
+            autocomplete="postal-code"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label for="country" class="form-label">País</label>
+          <select id="country" class="form-select" required autocomplete="country">
+            <option value="" selected disabled>Selecciona tu país</option>
+            <option>Argentina</option>
+            <option>Chile</option>
+            <option>Colombia</option>
+            <option>España</option>
+            <option>México</option>
+            <option>Perú</option>
+            <option>Otro</option>
+          </select>
+        </div>
+      </div>
+
+      
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input
+          type="number"
+          step="0.01"
+          min="0.01"
+          id="amount"
+          class="form-control"
+          placeholder=""
+          required
+        />
+      </div>
+
+      
+      <div class="mb-3">
+        <label for="message" class="form-label">Mensaje</label>
+        <textarea
+          id="message"
+          class="form-control"
+          placeholder="Escribe aquí tu mensaje..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      
+      <div class="payment-methods" role="radiogroup" aria-label="Formas de pago">
+        <label class="payment-method" for="paymentVisa">
+          <input type="radio" name="payment" id="paymentVisa" value="visa" checked />
+          <i class="fa-brands fa-cc-visa"></i> VISA
+        </label>
+
+        <label class="payment-method" for="paymentMastercard">
+          <input type="radio" name="payment" id="paymentMastercard" value="mastercard" />
+          <i class="fa-brands fa-cc-mastercard"></i> MASTERCARD
+        </label>
+
+        <label class="payment-method" for="paymentAmex">
+          <input type="radio" name="payment" id="paymentAmex" value="amex" />
+          <i class="fa-brands fa-cc-amex"></i> AMERICAN EXPRESS
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-4">Pagar Ahora</button>
+    </form>
+
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
